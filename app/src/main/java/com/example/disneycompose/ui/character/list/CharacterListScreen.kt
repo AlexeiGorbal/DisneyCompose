@@ -35,6 +35,8 @@ import com.example.disneycompose.R
 import com.example.disneycompose.model.Character
 import com.example.disneycompose.navigation.CHARACTER_SCREEN
 
+const val LIST_IS_NOT_LOADED = "List is not loaded"
+
 @Composable
 fun CharacterListScreen(
     navigationController: NavHostController,
@@ -55,14 +57,16 @@ fun CharacterListScreen(
         }
 
         is CharacterListState.Loading -> {
-            IndeterminateCircularIndicator()
+            IndeterminateLinearProgressIndicator()
         }
 
         is CharacterListState.Error -> {
-            Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT).show()
+            Toast.makeText(LocalContext.current, LIST_IS_NOT_LOADED, Toast.LENGTH_SHORT).show()
         }
 
-        else -> {}
+        else -> {
+            //do nothing
+        }
     }
 }
 
@@ -80,7 +84,7 @@ fun CharacterItem(character: Character, onClick: (id: String) -> Unit) {
 }
 
 @Composable
-fun IndeterminateCircularIndicator() {
+fun IndeterminateLinearProgressIndicator() {
 
     LinearProgressIndicator(
         modifier = Modifier
